@@ -51,11 +51,11 @@ RUN for bin in /opt/python/cp37-cp37m/bin/*; do \
 RUN /opt/python/cp37-cp37m/bin/pip debug
 
 # Python 3.8
-RUN mkdir -p /opt/python/cp38-cp38m
-COPY --from=python-3.8-alpine3.11 /usr/local/ /opt/python/cp38-cp38m/
-RUN for bin in /opt/python/cp38-cp38m/bin/*; do \
-  readelf -h $bin >/dev/null 2&>1 && patchelf --set-rpath /opt/python/cp38-cp38m/lib $bin || sed -i'' -e '1s"^#!.\+$"#! /opt/python/cp38-cp38m/bin/python"' $bin; \
+RUN mkdir -p /opt/python/cp38-cp38
+COPY --from=python-3.8-alpine3.11 /usr/local/ /opt/python/cp38-cp38/
+RUN for bin in /opt/python/cp38-cp38/bin/*; do \
+  readelf -h $bin >/dev/null 2&>1 && patchelf --set-rpath /opt/python/cp38-cp38/lib $bin || sed -i'' -e '1s"^#!.\+$"#! /opt/python/cp38-cp38/bin/python"' $bin; \
   done
-RUN /opt/python/cp38-cp38m/bin/pip debug
+RUN /opt/python/cp38-cp38/bin/pip debug
 
 CMD [ "node" ]
