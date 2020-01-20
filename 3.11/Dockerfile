@@ -13,10 +13,10 @@ RUN apk add --no-cache --virtual .pipeline-deps readline linux-pam \
 
 LABEL "com.azure.dev.pipelines.agent.handler.node.path"="/usr/local/bin/node"
 
-# Go, git, musl-dev (libc headers), gcc and libc6-compat to have the libc6.so
+# Python, git, musl-dev (libc headers), gcc and libc6-compat to have the libc6.so
 # symlink to muslc
 RUN apk -U --repository=http://dl-cdn.alpinelinux.org/alpine/edge/community \
-  add binutils patchelf git musl-dev libc6-compat
+  add binutils patchelf git musl-dev python3
 
 # Python 2.7 mu
 RUN mkdir -p /opt/python/cp27-cp27mu
