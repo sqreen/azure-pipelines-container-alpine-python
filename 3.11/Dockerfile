@@ -13,10 +13,14 @@ RUN apk add --no-cache --virtual .pipeline-deps readline linux-pam \
 
 LABEL "com.azure.dev.pipelines.agent.handler.node.path"="/usr/local/bin/node"
 
-# Python, git, musl-dev (libc headers), gcc and libc6-compat to have the libc6.so
-# symlink to muslc
 RUN apk -U --repository=http://dl-cdn.alpinelinux.org/alpine/edge/community \
-  add binutils patchelf git musl-dev python3
+  add binutils patchelf curl python3 alpine-sdk clang ninja python tar xz
+
+# Build GN
+RUN git clone https://gn.googlesource.com/gn /tmp/gn \
+    && git -C /tmp/gn checkout ad9e442d92dcd9ee73a557428cfc336b55cbd533 \
+    && python /tmp/gn/build/gen.py && ninja -C /tmp/gn/out \
+    && cp -f /tmp/gn/out/gn /usr/local/bin/gn && rm -rf /tmp/gn
 
 # Python 2.7 mu
 RUN mkdir -p /opt/python/cp27-cp27mu
