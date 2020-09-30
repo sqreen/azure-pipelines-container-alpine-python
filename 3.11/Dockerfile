@@ -13,7 +13,7 @@ RUN apk add --no-cache --virtual .pipeline-deps readline linux-pam \
 
 LABEL "com.azure.dev.pipelines.agent.handler.node.path"="/usr/local/bin/node"
 
-RUN apk -U --repository=http://dl-cdn.alpinelinux.org/alpine/edge/community \
+RUN apk -U --repository=http://dl-cdn.alpinelinux.org/alpine/3.11/community \
   add binutils patchelf curl python3 alpine-sdk clang ninja python tar xz
 
 # Build GN
